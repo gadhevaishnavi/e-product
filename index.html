@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Website</title>
+    <!-- Bootstrap 4 CDN -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="assets/styles/index.css">
+    
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">E-Shop</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Shop</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Cart <span id="cart-count" class="badge badge-light">0</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Product Filter -->
+<div class="container my-4">
+    <div class="row">
+        <div class="col-12">
+            <button class="btn btn-secondary" onclick="filterProducts('all')">All Products</button>
+            <button class="btn btn-secondary" onclick="filterProducts('category1')">Category 1</button>
+            <button class="btn btn-secondary" onclick="filterProducts('category2')">Category 2</button>
+        </div>
+    </div>
+</div>
+
+<!-- Product Section -->
+<div class="container section-padding" id="product-section">
+    <div class="row" id="product-list">
+        <!-- Product Card 1 -->
+        <div class="col-md-4 col-sm-6 mb-4 product-card" data-category="category1">
+            <div class="card">
+                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Product 1">
+                <div class="card-body">
+                    <h5 class="card-title">Product 1</h5>
+                    <p class="card-text">This is a great product, perfect for your needs.</p>
+                    <button class="btn btn-primary add-to-cart">Add to Cart</button>
+                    <button class="btn btn-info" data-toggle="modal" data-target="#productModal1">View Details</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Card 2 -->
+        <div class="col-md-4 col-sm-6 mb-4 product-card" data-category="category2">
+            <div class="card">
+                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Product 2">
+                <div class="card-body">
+                    <h5 class="card-title">Product 2</h5>
+                    <p class="card-text">This is another amazing product you will love.</p>
+                    <button class="btn btn-primary add-to-cart">Add to Cart</button>
+                    <button class="btn btn-info" data-toggle="modal" data-target="#productModal2">View Details</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Card 3 -->
+        <div class="col-md-4 col-sm-6 mb-4 product-card" data-category="category1">
+            <div class="card">
+                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Product 3">
+                <div class="card-body">
+                    <h5 class="card-title">Product 3</h5>
+                    <p class="card-text">This is the best product you can buy today.</p>
+                    <button class="btn btn-primary add-to-cart">Add to Cart</button>
+                    <button class="btn btn-info" data-toggle="modal" data-target="#productModal3">View Details</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Product Modals for Details -->
+<div class="modal fade" id="productModal1" tabindex="-1" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productModalLabel">Product 1 Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img src="https://via.placeholder.com/300x200" alt="Product 1">
+                <p>This is a detailed description of Product 1. It's a must-have for anyone!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Cart Button -->
+<button id="cart-btn" class="cart-btn" onclick="viewCart()">🛒</button>
+
+<!-- Footer Section -->
+<div class="footer">
+    <p>&copy; 2025 E-Shop. All rights reserved. | Designed by Your Company</p>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Custom JavaScript -->
+<script>
+    let cartCount = 0;
+
+    // Add item to cart
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+        button.addEventListener('click', () => {
+            cartCount++;
+            document.getElementById('cart-count').innerText = cartCount;
+            alert('Product added to cart!');
+        });
+    });
+
+    // Filter products by category
+    function filterProducts(category) {
+        const products = document.querySelectorAll('.product-card');
+        products.forEach(product => {
+            if (category === 'all' || product.dataset.category === category) {
+                product.style.display = 'block';
+            } else {
+                product.style.display = 'none';
+            }
+        });
+    }
+
+    // View Cart Button
+    function viewCart() {
+        alert(`You have ${cartCount} items in your cart.`);
+    }
+
+    // Smooth scrolling effect for nav
+    document.querySelectorAll('a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
